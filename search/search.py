@@ -317,9 +317,67 @@ def aStarSearch(problem: SearchProblem, heuristic=nullHeuristic) -> List[Directi
 
     return actions
 
-def geneticAlgorithm():
-    "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+def MDPTable(problem: SearchProblem) -> List[Directions]:
+    
+    startState = problem.getStartState()
+    currentState = startState
+
+    probabilityOfSuccess = 0.8
+    probabilityOfFailure = 0.1
+    max_iterations = 50
+    reward = 2
+    discount = 1
+
+    n = Directions.NORTH
+    e = Directions.EAST
+    s = Directions.SOUTH
+    w = Directions.WEST
+
+    actions = [n, e, s, w]
+
+    # Defining values for the walls
+    for i in range(problem.getWalls().height):
+        for j in range(problem.getWalls().width):
+
+            if problem.getWalls()[j][i] == True:
+                maze[i][j] = -1000
+            else:
+                maze[i][j] = 0
+
+    # change the food positions to 100
+    for food in problem.getFood().asList():
+        print("Food: ", food)
+        maze[food[1]][food[0]] = 100
+
+        # change the capsules positions to -100
+    for capsule in problem.getCapsules():
+        print("Capsule: ", capsule)
+        maze[capsule[1]][capsule[0]] = -100
+
+    print(maze)
+
+    policy = []
+
+    i = startState[0]
+    j = startState[1]
+    addI = [1, 0, -1, 0]
+    addJ = [0, 1, 0, -1]
+    while problem.getWalls()[i][j] == False:
+        # check north
+        if not (j, i) in problem.getFood().asList():
+            print("i: ", i, "j: ", j)
+            print(not (j, i) in problem.getFood.asList())
+            bestMove = np.argmax([maze[i+1][j], maze[i-1][j], maze[i][j+1], maze[i][j-1]])
+            print("Best Move: ", bestMove)
+            i += addI[bestMove]
+            j += addJ[bestMove]
+            policy.append(actions[bestMove])
+            print("Policy: ", policy)
+        else:
+            break
+    
+    print(policy)
+    return policy
 
 # Abbreviations
 bfs = breadthFirstSearch
@@ -328,4 +386,7 @@ ucs = uniformCostSearch
 gdy = greedySearch
 astar = aStarSearch
 
-ga = geneticAlgorithm
+mdp = MDPTable
+
+# Comando MDP
+# python3 pacman.py -l gridWorld -p SearchAgent -a fn=mdp
