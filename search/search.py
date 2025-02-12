@@ -353,6 +353,9 @@ def MDPTable(problem: SearchProblem) -> List[Directions]:
 
     actions = [n, e, s, w]
 
+    maze = [(x, y) for x in range(3) for y in range(4)]
+    V = {s: 0 for s in maze}  # Initializes state values
+
     # Defining values for the walls
     for i in range(problem.getWalls().height):
         for j in range(problem.getWalls().width):
@@ -367,7 +370,7 @@ def MDPTable(problem: SearchProblem) -> List[Directions]:
         print("Food: ", food)
         maze[food[1]][food[0]] = 100
 
-        # change the capsules positions to -100
+    # change the capsules positions to -100
     for capsule in problem.getCapsules():
         print("Capsule: ", capsule)
         maze[capsule[1]][capsule[0]] = -100
