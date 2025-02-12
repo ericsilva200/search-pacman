@@ -67,6 +67,24 @@ class SearchProblem:
         """
         util.raiseNotDefined()
 
+    def getWalls(self):
+        """
+        Returns the walls in the grid
+        """
+        util.raiseNotDefined()
+
+    def getCapsules(self):
+        """
+        Returns the capsules in the grid
+        """
+        util.raiseNotDefined()
+
+    def getFood(self):
+        """
+        Returns the food in the grid
+        """
+        util.raiseNotDefined()
+    
 def tinyMazeSearch(problem: SearchProblem) -> List[Directions]:
     """
     Returns a sequence of moves that solves tinyMaze.  For any other maze, the

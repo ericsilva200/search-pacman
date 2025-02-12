@@ -185,6 +185,8 @@ class PositionSearchProblem(search.SearchProblem):
         self.goal = goal
         self.costFn = costFn
         self.visualize = visualize
+        self.capsules = gameState.getCapsules()
+        self.food = gameState.getFood().asList()
         if warn and (gameState.getNumFood() != 1 or not gameState.hasFood(*goal)):
             print('Warning: this does not look like a regular search maze')
 
@@ -242,6 +244,15 @@ class PositionSearchProblem(search.SearchProblem):
     
     def getGoalState(self):
         return self.goal
+    
+    def getWalls(self):
+        return self.walls
+     
+    def getCapsules(self):
+        return self.capsules 
+    
+    def getFood(self):
+        return self.food
     
     def getCostOfActions(self, actions):
         """
